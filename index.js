@@ -15,10 +15,18 @@ const makeCommit = n => {
     // Generate a random date between 1 year ago and yesterday (to ensure all dates are in the past)
     const now = moment();
     const oneYearAgo = moment().subtract(1, "y");
+
+    // Calculate days between one year ago and today
     const daysInRange = now.diff(oneYearAgo, 'days');
+
+    // Generate a random number of days to add (between 0 and daysInRange-1)
     const randomDays = getRandomInt(0, daysInRange - 1); // -1 to exclude today
 
-    const DATE = oneYearAgo.add(randomDays, "d").format();
+    // Create a new date object to avoid modifying the original
+    const randomDate = moment(oneYearAgo).add(randomDays, "d");
+
+    // Format the date
+    const DATE = randomDate.format();
 
     const data = {
         date: DATE
