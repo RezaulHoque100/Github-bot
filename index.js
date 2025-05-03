@@ -12,18 +12,18 @@ const makeCommit = n => {
     // Generate random integers for weeks and days using Math.random
     const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-    // Generate a random date between 1 year ago and yesterday (to ensure all dates are in the past)
-    const now = moment();
-    const oneYearAgo = moment().subtract(1, "y");
+    // Generate a random date in the past year (between May 1, 2023 and April 30, 2024)
+    const startDate = moment('2023-05-01');
+    const endDate = moment('2024-04-30');
 
-    // Calculate days between one year ago and today
-    const daysInRange = now.diff(oneYearAgo, 'days');
+    // Calculate total days in this fixed range
+    const daysInRange = endDate.diff(startDate, 'days');
 
-    // Generate a random number of days to add (between 0 and daysInRange-1)
-    const randomDays = getRandomInt(0, daysInRange - 1); // -1 to exclude today
+    // Generate a random number of days to add (between 0 and daysInRange)
+    const randomDays = getRandomInt(0, daysInRange);
 
-    // Create a new date object to avoid modifying the original
-    const randomDate = moment(oneYearAgo).add(randomDays, "d");
+    // Create the random date
+    const randomDate = moment(startDate).add(randomDays, "d");
 
     // Format the date
     const DATE = randomDate.format();
